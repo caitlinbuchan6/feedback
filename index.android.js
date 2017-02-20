@@ -1,14 +1,48 @@
 import React, { Component } from 'react';
-import { AppRegistry, Navigator } from 'react-native';
+import { AppRegistry, TextInput, View, Button, Alert } from 'react-native';
+// import { CommonStyle } from ""
 
-import notes from './app/screens/notes';
+  const pressMe = () => {
+    Alert.alert('Button has been pressed!');
+  }
 
-class SimpleNavigationApp extends Component {
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      username : '',
+      password : ''
+    };
+  }
+
   render() {
     return (
-        <notes/>
-      )
+      <View>
+
+        <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(username) => this.setState({username})}
+        placeholder={'Username'}
+        value={this.state.username}
+        />
+        
+        <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(password) => this.setState({password})}
+        placeholder={'Password'}
+        secureTextEntry={true}
+        value={this.state.password}
+        />
+
+        <Button
+        onPress={pressMe}
+        title="Submit"
+        color="#841584"
+        />
+
+      </View>
+    )
   }
 }
 
-AppRegistry.registerComponent('FeedbackApp', () => SimpleNavigationApp);
+AppRegistry.registerComponent('FeedbackApp', () => Login);
