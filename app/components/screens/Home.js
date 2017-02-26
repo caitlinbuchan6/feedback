@@ -8,8 +8,9 @@ export default class Home extends Component {
 		this.goSubject = this.goSubject.bind(this);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource:ds.cloneWithRows(['row 1', 'row 2']),
+			dataSource:ds.cloneWithRows([{Index: "1", Title:"Subject One", Info:"More Data Inside"}, {Index:"2", Title:"Subject Two", Info:"Even More Data Inside"}]),
 		};
+		this.renderRow = this.renderRow.bind(this);
 	}
 
 	render() {
@@ -17,22 +18,22 @@ export default class Home extends Component {
 			<View style={styles.list}>
 				<ListView
 				dataSource={this.state.dataSource}
-				renderRow={this.renderRow.bind(this)}
+				renderRow={this.renderRow}
 				/>
 			</View>
 		);
 	}
 
-	renderRow() {
+	renderRow(rowData) {
 		var header = (
 			<View style={{flex:3, borderColor: 'gray', borderWidth: 1, backgroundColor: 'skyblue'}}>
-				<Text>Click to expand</Text>
+				<Text>{rowData.Title}</Text>
 			</View>
 		);
 
 		var content = (
-			<View style={{flex: 2, borderColor: 'gray', borderWidth: 1}}>
-				<Text>MOar</Text>
+			<View style={{flex: 2, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}>
+				<Text>{rowData.Info}</Text>
 
 				<Button
 				onPress={this.goSubject}
