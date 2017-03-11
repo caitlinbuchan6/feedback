@@ -40,8 +40,9 @@ export default class Login extends Component {
   }
 
   goHome() {
-    this.props.navigator.push({screen: 'Home'});
+    this.props.navigator.push({screen: 'Home', index: 1});
   }
+
 }
 
 AppRegistry.registerComponent('FeedbackApp', () => Login);

@@ -5,13 +5,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './app/components/screens/Login';
 import Home from './app/components/screens/Home';
 import Subject from './app/components/screens/Subject';
+import Feedback from './app/components/screens/Feedback';
+import Note from './app/components/screens/Note';
+import YourSay from './app/components/screens/YourSay';
+import YourSayEdit from './app/components/screens/YourSayEdit'
 
 class Navigation extends Component {
   render() {
     return (
       <Navigator
         sceneStyle={{paddingTop: 64}} 
-        initialRoute={{screen: 'Login'}}
+        initialRoute={{screen: 'Login', index: 0}}
         renderScene={(route, nav) => {return this.renderScene(route, nav)}}
         navigationBar={
           <Navigator.NavigationBar
@@ -47,13 +51,28 @@ class Navigation extends Component {
   }
 
   renderScene(route, nav) {
-    switch (route.screen) {
-      case "Login":
+    switch (route.index) {
+      case 0:
         return <Login navigator={nav} />
-      case "Home":
+      case 1:
         return <Home navigator={nav} />
-      case "Subject":
-        return <Subject navigator={nav} />
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return <Subject navigator={nav} title = {route.screen}/>
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+        return <Note navigator={nav} title = {route.screen} edit={route.edit}/>
+      case 10:
+      case 11:
+      case 12:
+        return <Feedback navigator={nav} title = {route.screen} new = {route.new}/>
+      case 13:
+      case 14:
+        return <YourSay navigator={nav} title = {route.screen} edit={route.edit}/>
     }
   }
 }

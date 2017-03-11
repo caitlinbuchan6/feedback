@@ -5,12 +5,17 @@ var Accordion = require('react-native-accordion');
 export default class Home extends Component {
 	constructor(props) {
 		super(props);
-		this.goSubject = this.goSubject.bind(this);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
-			dataSource:ds.cloneWithRows([{Index: "1", Title:"Subject One", Info:"More Data Inside"}, {Index:"2", Title:"Subject Two", Info:"Even More Data Inside"}]),
+			dataSource:ds.cloneWithRows([
+				{Index: 2, Title:"Web Development", Info:"More Data Inside"}, 
+				{Index: 3, Title:"Applications Development in Java", Info:"Even More Data Inside"},
+				{Index: 4, Title:"Oracle Database", Info:""},
+				{Index: 5, Title:"Object Oriented Analysis and Design", Info:""}
+				]),
 		};
 		this.renderRow = this.renderRow.bind(this);
+		this.goSubject = this.goSubject.bind(this);
 	}
 
 	render() {
@@ -36,7 +41,7 @@ export default class Home extends Component {
 				<Text>{rowData.Info}</Text>
 
 				<Button
-				onPress={this.goSubject}
+				onPress={this.goSubject.bind(this, rowData)}
 				title="Go to Subject Page"
 				/>
 			</View>
@@ -51,14 +56,20 @@ export default class Home extends Component {
 		);
 	}
 
-	goSubject() {
-		this.props.navigator.push({screen: 'Subject'});
+	goSubject(rowData) {
+		this.props.navigator.push({screen: rowData.Title, index: rowData.Index});
 	}
 }
 
 const styles = StyleSheet.create({
 	list: {
 		flex: 1,
+
+	},
+	subject: {
+
+	},
+	content: {
 
 	}
 
