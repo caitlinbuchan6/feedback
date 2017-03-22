@@ -7,8 +7,9 @@ import Home from './app/components/screens/Home';
 import Subject from './app/components/screens/Subject';
 import Feedback from './app/components/screens/Feedback';
 import Note from './app/components/screens/Note';
+import EditNote from './app/components/screens/EditNote';
 import YourSay from './app/components/screens/YourSay';
-import YourSayEdit from './app/components/screens/YourSayEdit'
+
 
 class Navigation extends Component {
   render() {
@@ -17,6 +18,7 @@ class Navigation extends Component {
         sceneStyle={{paddingTop: 64}} 
         initialRoute={{screen: 'Login', index: 0}}
         renderScene={(route, nav) => {return this.renderScene(route, nav)}}
+        onFocus=
         navigationBar={
           <Navigator.NavigationBar
             style = {styles.bar}
@@ -65,7 +67,7 @@ class Navigation extends Component {
       case 7:
       case 8:
       case 9:
-        return <Note navigator={nav} title = {route.screen} edit={route.edit}/>
+        return <Note navigator={nav} title = {route.screen} note={route.index}/>
       case 10:
       case 11:
       case 12:
@@ -73,6 +75,8 @@ class Navigation extends Component {
       case 13:
       case 14:
         return <YourSay navigator={nav} title = {route.screen} edit={route.edit}/>
+      case 15:
+        return <EditNote navigator={nav} title = {route.screen} note={route.note}/>
     }
   }
 }

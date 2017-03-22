@@ -8,7 +8,13 @@ export default class Note extends Component {
 			'note': '',
 		};
 		this.goNoteEdit = this.goNoteEdit.bind(this);
-		this.goNote = this.goNote.bind(this);
+	}
+
+	//need this for updating page on navigator pop
+	componentWillReceiveProps = () => {
+		AsyncStorage.getItem('note').then((value) => {
+			this.setState({'note':value});
+		});
 	}
 
 	componentDidMount = () => {
@@ -21,25 +27,8 @@ export default class Note extends Component {
 		AsyncStorage.setItem('note', value);
 		this.setState({'note':value});
 	}
+
 	render() {
-		if(this.props.edit) {
-			return (
-				<View>
-
-			<TextInput
-			style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-			placeholder={'Your Note Goes Here'}
-			onChangeText = {this.setData}
-			value = {this.state.note}/>
-
-			<Button
-				onPress={this.goNote.bind(this)}
-				title='Save'
-			/>
-
-			</View>
-				)
-		} else {
 			 return (
 				<View>
 					<Text
@@ -52,14 +41,9 @@ export default class Note extends Component {
 				</View>
 			)
 		}
-	}
 
 	goNoteEdit() {
-		this.props.navigator.push({screen: this.props.title, index: this.props.index, edit:true});
-	}
-
-	goNote() {
-		this.props.navigator.push({screen: this.props.title, index: this.props.index, edit:false});
+		this.props.navigator.push({screen: this.props.title, index: 15, note: this.props.index});
 	}
 }
 
