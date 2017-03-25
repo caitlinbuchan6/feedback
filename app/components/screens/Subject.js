@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, StyleSheet, AsyncStorage, Button } from 'react-native';
+import { AppRegistry, Text, View, ListView, StyleSheet, AsyncStorage } from 'react-native';
+import Button from 'react-native-button';
+
 var Accordion = require('react-native-accordion');
 
 var items = [
@@ -10,7 +12,7 @@ var items = [
 	{Index: 7, Title:"To Do", Info:"", Type:"Notes", Edit: false},
 	{Index: 8, Title:"Very Important", Info:"", Type:"Notes", Edit: true},
 	{Index: 9, Title:"Don't Forget!!", Info:"", Type:"Notes", Edit: false},
-	{Index: 13, Title:"Comments on Coursework Feedforward", Info:"", Type:"Comments Sent", New: false}
+	{Index: 13, Title:"Coursework Feedforward", Info:"", Type:"Comments Sent", New: false}
 ];
 
 export default class Subject extends Component {
@@ -39,19 +41,20 @@ export default class Subject extends Component {
 
 	renderRow(itemsItem) {
 		var header = (
-			<View style={{flex:3, borderColor: 'gray', borderWidth: 1, backgroundColor: 'skyblue'}}>
-				<Text>{itemsItem.Title}</Text>
+			<View style={styles.header}>
+				<Text style={styles.headertext}>{itemsItem.Title}</Text>
 			</View>
 		);
 
 		var content = (
-			<View style={{flex: 2, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}>
-				<Text>{itemsItem.Info}</Text>
+			<View style={styles.content}>
+				<Text style={styles.contenttext}>{itemsItem.Info}</Text>
 
 				<Button
-				onPress={this.goFeedback.bind(this, itemsItem)}
-				title="Go to Page"
-				/>
+        			onPress={this.goFeedback.bind(this, itemsItem)}
+        			containerStyle={styles.buttoncontainer}
+        			style={styles.buttontext}>Go to Page
+        		</Button>
 			</View>
 		);
 
@@ -66,7 +69,9 @@ export default class Subject extends Component {
 
 	renderSectionHeader(sectionData, Type) {
 		return (
-			<Text>{Type}</Text>
+			<View style={styles.section}>
+				<Text style={styles.buttontext}>{Type}</Text>
+			</View>
 		)
 	}
 
@@ -91,14 +96,50 @@ export default class Subject extends Component {
 const styles = StyleSheet.create({
 	list: {
 		flex: 1,
-
+    	backgroundColor: '#CFD8DC',
+	},
+	header: {
+		height: 50,
+		borderColor: '#455A64',
+		borderWidth: 1,
+		backgroundColor: '#CFD8DC',
+		justifyContent: 'center',
+	},
+	headertext: {
+		padding: 10,
+		fontSize: 20,
+    	color: '#212121',
+    	textAlignVertical: 'center',
 	},
 	subject: {
-
+	
 	},
 	content: {
+		borderColor: 'gray',
+		backgroundColor: 'white',
+		borderWidth: 1,
 
-	}
-
+	},
+	contenttext: {
+		fontSize: 20,
+		margin: 10,
+	},
+	buttoncontainer: {
+    	margin: 5,
+    	width: 250,
+    	padding: 10,
+    	backgroundColor: '#607D8B',
+    	alignSelf: 'center'
+  	},
+  	buttontext: {
+  		marginLeft: 10,
+  		fontSize: 20,
+    	color: '#FFFFFF',
+    	textAlignVertical: 'center'
+  	},
+  	section: {
+  		height: 30,
+  		backgroundColor: '#455A64'
+  	}
 })
 AppRegistry.registerComponent('FeedbackApp', () => Subject);

@@ -29,7 +29,7 @@ class Navigation extends Component {
                 } else {
                   return (
                     <TouchableHighlight onPress={() => nav.pop()}>
-                      <Icon name = "arrow-left" size = {30}/>
+                      <Icon name = "arrow-left" size = {30} color = '#FF5722' style={{marginLeft:10}}/>
                     </TouchableHighlight>
                   );
                 } 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 20,
-  }
+  },
 
 })
 
