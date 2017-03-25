@@ -15,28 +15,28 @@ constructor(props) {
 		});
 	}
 
-	setData = (value) => {
-		AsyncStorage.setItem('comments', value);
-		this.setState({'comments':value});
-	}
 	render() {
-
-		if(this.props.edit) {
 			return (
-			<View>
-
-			<TextInput
-			onChangeText = {this.setData}
-			value = {this.state.comments}/>
-
-			</View>
+				<View style={styles.list}>
+					<Text style={styles.textbox}>{this.state.comments}</Text>
+				</View>
 		);
-		} else {
-			return (
-			<Text>{this.state.comments}</Text>
-		);
-		}	
 	}
 }
+
+const styles = StyleSheet.create({
+	list: {
+		flex: 1,
+    	backgroundColor: '#CFD8DC',
+	},
+  	textbox: {
+  		flex: 1,
+  		borderColor: '#455A64',
+    	borderWidth:2,
+    	padding: 5,
+    	margin: 5,
+    	backgroundColor: '#FFFFFF'
+  	}
+})
 
 AppRegistry.registerComponent('FeedbackApp', () => YourSay);

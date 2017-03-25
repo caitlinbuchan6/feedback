@@ -9,7 +9,7 @@ import Feedback from './app/components/screens/Feedback';
 import Note from './app/components/screens/Note';
 import EditNote from './app/components/screens/EditNote';
 import YourSay from './app/components/screens/YourSay';
-
+import YourSayEdit from './app/components/screens/YourSayEdit';
 
 class Navigation extends Component {
   render() {
@@ -68,8 +68,9 @@ class Navigation extends Component {
       case 12:
         return <Feedback navigator={nav} title = {route.screen} new = {route.new}/>
       case 13:
+        return <YourSay navigator={nav} title = {route.screen}/>
       case 14:
-        return <YourSay navigator={nav} title = {route.screen} edit={route.edit}/>
+        return <YourSayEdit navigator={nav} title = {route.screen}/>
       case 15:
         return <EditNote navigator={nav} title = {route.screen} note={route.note}/>
     }
