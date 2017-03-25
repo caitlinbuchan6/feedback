@@ -18,7 +18,6 @@ class Navigation extends Component {
         sceneStyle={{paddingTop: 64}} 
         initialRoute={{screen: 'Login', index: 0}}
         renderScene={(route, nav) => {return this.renderScene(route, nav)}}
-        onFocus=
         navigationBar={
           <Navigator.NavigationBar
             style = {styles.bar}
@@ -37,14 +36,10 @@ class Navigation extends Component {
               },
               RightButton: () => {return null;},
               Title: (route, nav, index, navState) => 
-                { if (route.screen === 'Login') {
-                  return null;
-                } else {
-                return (
+                { return (
                   <Text style={styles.title}>{route.screen}</Text>
                   );
-                }
-              },
+                },
             }}
           />
         }
@@ -83,10 +78,10 @@ class Navigation extends Component {
 
 const styles = StyleSheet.create({
   bar: {
-    backgroundColor: 'powderblue',
+    backgroundColor: '#607D8B',
   },
   title: {
-    color: 'steelblue',
+    color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 20,
   }
