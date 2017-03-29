@@ -60,8 +60,6 @@ class Navigation extends Component {
         return <Subject navigator={nav} title = {route.screen}/>
       case 6:
       case 7:
-      case 8:
-      case 9:
         return <Note navigator={nav} title = {route.screen} note={route.index}/>
       case 10:
       case 11:
