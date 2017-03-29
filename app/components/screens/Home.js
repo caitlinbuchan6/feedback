@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, StyleSheet } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {ListView} from 'realm/react-native';
+import realm from './../models/Index';
 
 var Accordion = require('react-native-accordion');
+
 export default class Home extends Component {
 	constructor(props) {
 		super(props);
-		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		const ds = new ListView.DataSource({
+			rowHasChanged: (r1, r2) => r1 !== r2});
+		let data = realm.objects('Subject').sorted('title');
 		this.state = {
-			dataSource:ds.cloneWithRows([
-				{Index: 2, Title:"Web Development", Info:"More Data Inside", new:false}, 
-				{Index: 3, Title:"Coding in Java", Info:"Even More Data Inside", new: false},
-				{Index: 4, Title:"Oracle Database", Info:"", new: true},
-				{Index: 5, Title:"Analysis and Design", Info:"", new: false}
-				]),
+			dataSource:ds.cloneWithRows(data),
+			items: data,
 		};
 		this.renderRow = this.renderRow.bind(this);
 		this.goSubject = this.goSubject.bind(this);
+	
+
 	}
+
+
 
 	render() {
 		return (
@@ -40,14 +45,14 @@ export default class Home extends Component {
 		var header = (
 			<View style={styles.header}>
 				{hasNew}
-				<Text style={styles.headertext}>{rowData.Title}</Text>
+				<Text style={styles.headertext}>{rowData.title}</Text>
 			</View>
 		);
 
 
 		var content = (
 			<View style={styles.content}>
-				<Text style={styles.contenttext}>{rowData.Info}</Text>
+				<Text style={styles.contenttext}>{rowData.info}</Text>
 				<Button
         			onPress={this.goSubject.bind(this, rowData)}
         			containerStyle={styles.buttoncontainer}
@@ -67,7 +72,7 @@ export default class Home extends Component {
 	}
 
 	goSubject(rowData) {
-		this.props.navigator.push({screen: rowData.Title, index: rowData.Index});
+		this.props.navigator.push({screen: rowData.title, index: rowData.index});
 	}
 }
 

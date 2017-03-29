@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Navigator, TouchableHighlight, Text, StyleSheet } from 'react-native';
+import { AppRegistry, Navigator, TouchableHighlight, Text, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Login from './app/components/screens/Login';

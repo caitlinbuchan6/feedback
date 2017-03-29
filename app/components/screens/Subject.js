@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import Button from 'react-native-button';
+import {ListView} from 'realm/react-native';
 
 var Accordion = require('react-native-accordion');
 

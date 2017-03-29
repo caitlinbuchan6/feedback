@@ -17,7 +17,7 @@ export default class Login extends Component {
 
         <Image
           style={styles.logo}
-          source={require('./logo.png')}
+          source={require('./../images/logo.png')}
         />
 
         <View style={styles.textview}>
