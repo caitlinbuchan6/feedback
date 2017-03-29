@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import Button from 'react-native-button';
 import {ListView} from 'realm/react-native';
+import realm from './../models/Index';
 
 var Accordion = require('react-native-accordion');
-
-var items = [
-	{Index: 10, Title:"Essay Feedback", Info:"now there is something here", Type:"New Feedback", New: true}, 
-	{Index: 11, Title:"Coursework Feedforward", Info:"", Type:"Existing Feedback", New: false},
-	{Index: 12, Title:"Exam Result", Info:"", Type:"Existing Feedback", New: false},
-	{Index: 6, Title:"Remember To", Info:"", Type:"Notes", Edit: false}, 
-	{Index: 7, Title:"To Do", Info:"", Type:"Notes", Edit: false},
-	{Index: 8, Title:"Very Important", Info:"", Type:"Notes", Edit: true},
-	{Index: 9, Title:"Don't Forget!!", Info:"", Type:"Notes", Edit: false},
-	{Index: 13, Title:"Coursework Feedforward", Info:"", Type:"Comments Sent", New: false}
-];
+var data = realm.objects('SubjectContent');
 
 export default class Subject extends Component {
 	constructor(props) {
 		super(props);
+		
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,
 			sectionHeaderHasChanged: (s1, s2) => s1 != s2});
 		this.state = {
@@ -40,19 +32,19 @@ export default class Subject extends Component {
 		);
 	}
 
-	renderRow(itemsItem) {
+	renderRow(dataItem) {
 		var header = (
 			<View style={styles.header}>
-				<Text style={styles.headertext}>{itemsItem.Title}</Text>
+				<Text style={styles.headertext}>{dataItem.title}</Text>
 			</View>
 		);
 
 		var content = (
 			<View style={styles.content}>
-				<Text style={styles.contenttext}>{itemsItem.Info}</Text>
+				<Text style={styles.contenttext}>{dataItem.info}</Text>
 
 				<Button
-        			onPress={this.goFeedback.bind(this, itemsItem)}
+        			onPress={this.goFeedback.bind(this, dataItem)}
         			containerStyle={styles.buttoncontainer}
         			style={styles.buttontext}>Go to Page
         		</Button>
@@ -76,18 +68,18 @@ export default class Subject extends Component {
 		)
 	}
 
-	goFeedback(itemsItem) {
-		this.props.navigator.push({screen: itemsItem.Title, index: itemsItem.Index, new: itemsItem.New, edit: itemsItem.Edit});
+	goFeedback(dataItem) {
+		this.props.navigator.push({screen: dataItem.title, index: dataItem.index, new: dataItem.new});
 	}
 
 	convertToMap() {
 	var map = {};
-	items.forEach(function(itemsItem) {
-		if (!map[itemsItem.Type]) {
-			map[itemsItem.Type] = [];
+	data.forEach(function(dataItem) {
+		if (!map[dataItem.type]) {
+			map[dataItem.type] = [];
 		}
 
-		map[itemsItem.Type].push(itemsItem);
+		map[dataItem.type].push(dataItem);
 	});
 
 	return map;

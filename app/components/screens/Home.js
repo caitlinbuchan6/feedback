@@ -19,11 +19,7 @@ export default class Home extends Component {
 		};
 		this.renderRow = this.renderRow.bind(this);
 		this.goSubject = this.goSubject.bind(this);
-	
-
 	}
-
-
 
 	render() {
 		return (
