@@ -5,17 +5,17 @@ import {ListView} from 'realm/react-native';
 import realm from './../models/Index';
 
 var Accordion = require('react-native-accordion');
-var data = realm.objects('SubjectContent');
 
 export default class Subject extends Component {
 	constructor(props) {
 		super(props);
-		
+		var data = realm.objects('SubjectContent').filtered('subject = "' + props.id + '"');
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,
 			sectionHeaderHasChanged: (s1, s2) => s1 != s2});
 		this.state = {
-			dataSource:ds.cloneWithRowsAndSections(this.convertToMap())
+			dataSource:ds.cloneWithRowsAndSections(this.convertToMap(data))
 		};
+
 		this.renderRow = this.renderRow.bind(this);
 		this.goFeedback = this.goFeedback.bind(this);
 	}
@@ -69,10 +69,10 @@ export default class Subject extends Component {
 	}
 
 	goFeedback(dataItem) {
-		this.props.navigator.push({screen: dataItem.title, index: dataItem.index, new: dataItem.new});
+		this.props.navigator.push({screen: dataItem.title, index: dataItem.index, new: dataItem.new, fk: dataItem.fk });
 	}
 
-	convertToMap() {
+	convertToMap(data) {
 	var map = {};
 	data.forEach(function(dataItem) {
 		if (!map[dataItem.type]) {

@@ -40,7 +40,6 @@ export default class Home extends Component {
 
 		var header = (
 			<View style={styles.header}>
-				{hasNew}
 				<Text style={styles.headertext}>{rowData.title}</Text>
 			</View>
 		);
@@ -68,7 +67,7 @@ export default class Home extends Component {
 	}
 
 	goSubject(rowData) {
-		this.props.navigator.push({screen: rowData.title, index: rowData.index});
+		this.props.navigator.push({screen: rowData.title, index: rowData.index, id: rowData.id});
 	}
 }
 

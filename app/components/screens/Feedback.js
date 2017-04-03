@@ -1,37 +1,41 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, View, TextInput, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
+import realm from './../models/Index';
 
 export default class Feedback extends Component {
 	constructor(props) {
 		super(props);
 		this.goYourSayEdit = this.goYourSayEdit.bind(this);
+    var dataSet = realm.objects('Feedback').filtered('id = "' + props.fk +'"');
+    //need to tell it to use the first result in the array
+    this.state = {
+      data: dataSet[0]
+    };
 	}
 
 	render() {
-
 		return (
-
 		<View style = {styles.list}>
 			<View style = {styles.box}>
 				<View style = {styles.titlebox}>
 					<Text style={styles.header}>Title of CW</Text>
-					<Text style={styles.title}>An Investigation into the Normalisation of a Database.</Text>
+					<Text style={styles.title}>{this.state.data.title}</Text>
 				</View>
 
 				<View style={styles.markbox}>
 					<Text style={styles.header}>Final Mark</Text>
-					<Text style={styles.title}>77%</Text>
+					<Text style={styles.title}>{this.state.data.mark}%</Text>
 				</View>
 
 				<View style={styles.textbox}>
 					<Text style={styles.header}>Comments</Text>
-					<Text style={styles.text}></Text>
+					<Text style={styles.text}>{this.state.data.comment}</Text>
 				</View>
 
 				<View style={styles.textbox}>
 					<Text style={styles.header}>Feed Forward</Text>
-					<Text style={styles.text}></Text>
+					<Text style={styles.text}>{this.state.data.feedforward}</Text>
 				</View>
 			</View>
 
@@ -45,6 +49,10 @@ export default class Feedback extends Component {
 	);
 
 	}
+
+  getObject(data) {
+
+  }
 
 	goYourSayEdit() {
 		this.props.navigator.push({screen: this.props.title, index: 14});
