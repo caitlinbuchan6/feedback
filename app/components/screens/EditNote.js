@@ -41,10 +41,13 @@ export default class EditNote extends Component {
 	}
 
 	goNote() {
+		var count = realm.objects('Note').length;
+		var id = count + 1;
+		var idString = id.toString();
 		var subject = this.props.subject.toString();
 		realm.write (() => {
-			realm.create('Note', {id: 7, index: 18, title: this.state.title, note: this.state.content, subject: subject});
-			realm.create('SubjectContent', {index: 18, fk: '7', title: this.state.title, info: '', subject: subject, type: 'Note', new: false});
+			realm.create('Note', {id: id, index: 18, title: this.state.title, note: this.state.content, subject: subject});
+			realm.create('SubjectContent', {index: 18, fk: idString, title: this.state.title, info: '', subject: subject, type: 'Note', new: false});
 		});
 		this.props.navigator.pop();
 	}

@@ -37,7 +37,7 @@ class Navigation extends Component {
               RightButton: () => {return null;},
               Title: (route, nav, index, navState) => 
                 { return (
-                  <Text style={styles.title}>{route.screen}</Text>
+                  <Text ellipsizeMode='tail' numberOfLines={1} style={styles.title}>{route.screen}</Text>
                   );
                 },
             }}
@@ -91,9 +91,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#607D8B',
   },
   title: {
+    marginLeft: 40,
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 20
   },
 
 })

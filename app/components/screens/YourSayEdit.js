@@ -34,10 +34,13 @@ export default class YourSayEdit extends Component {
 	}
 
 	goBack() {
+		var count = realm.objects('YourSay').length;
+		var id = count + 1;
+		var idString = id.toString();
 		var title = 'Re: ' + this.props.title;
 		realm.write (() => {
-			realm.create('YourSay', {id: 5, index: 19, title: title, comments: this.state.data, subject: this.props.subject, feedback: '1'});
-			realm.create('SubjectContent', {index: 22, fk: '5', title: title, info: '', subject: this.props.subject, type: 'Your Say', new: false});
+			realm.create('YourSay', {id: id, index: 19, title: title, comments: this.state.data, subject: this.props.subject, feedback: '1'});
+			realm.create('SubjectContent', {index: 22, fk: idString, title: title, info: '', subject: this.props.subject, type: 'Your Say', new: false});
 		})
 		this.props.navigator.pop();
 	}
