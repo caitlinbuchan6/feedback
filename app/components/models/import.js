@@ -22,7 +22,7 @@ realm.write(() => {
 	realm.create('SubjectContent', {index: 19, fk: '1', title: 'My First Website - Reply', info: '', subject: '1', type: 'Your Say', new: false});
 	realm.create('SubjectContent', {index: 20, fk: '2', title: 'Creating An Abstract Class - Reply', info: '', subject: '2', type: 'Your Say', new: false});
 	realm.create('SubjectContent', {index: 21, fk: '3', title: 'The Advantages and Disadvantages of Using Oracle - Reply', info: '', subject: '3', type: 'Your Say', new: false});
-	realm.create('SubjectContent', {index: 22, fk: '4', title: 'Requirements Gathering', info: '', subject: '4', type: 'Your Say', new: false});
+	realm.create('SubjectContent', {index: 22, fk: '4', title: 'Requirements Gathering - Reply', info: '', subject: '4', type: 'Your Say', new: false});
 })
 
 realm.write(() => {
@@ -48,5 +48,5 @@ realm.write (() => {
 	realm.create('YourSay', {id: 1, index: 19, title: 'My First Website - Reply', comments: 'This is where the student can reply to the feedback given by the lecturer.', subject: '1', feedback: '1'});
 	realm.create('YourSay', {id: 2, index: 20, title: 'Creating An Abstract Class - Reply', comments: 'This is where the student can reply to the feedback given by the lecturer.', subject: '2', feedback: '3'});
 	realm.create('YourSay', {id: 3, index: 21, title: 'The Advantages and Disadvantages of Using Oracle - Reply', comments: 'This is where the student can reply to the feedback given by the lecturer.', subject: '3', feedback: '4'});
-	realm.create('YourSay', {id: 4, index: 22, title: 'Requirements Gathering', comments: 'This is where the student can reply to the feedback given by the lecturer.', subject: '4', feedback: '6'});
+	realm.create('YourSay', {id: 4, index: 22, title: 'Requirements Gathering - Reply', comments: 'This is where the student can reply to the feedback given by the lecturer.', subject: '4', feedback: '6'});
 })

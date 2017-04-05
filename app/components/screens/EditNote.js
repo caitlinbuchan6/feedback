@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, TextInput, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
+import realm from './../models/Index';
 
 export default class EditNote extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			'note': '',
-		};
-		this.goNote = this.goNote.bind(this);
+   		this.state = {
+   			title: '',
+      		content: ''
+    	};
+    	this.goNote.bind(this);
 	}
 
-	componentDidMount = () => {
-		AsyncStorage.getItem('note').then((value) => {
-			this.setState({'note':value});
-		});
-	}
-
-	setData = (value) => {
-		AsyncStorage.setItem('note', value);
-		this.setState({'note':value});
-	}
 	render() {
 		return (
 			<View style={styles.list}>
+				<TextInput
+					style={styles.titlebox}
+					placeholder={'Note Title'}
+					onChangeText = {(title) => this.setState({title: title})}
+					value = {this.state.title}/>
 
 				<TextInput
 					style={styles.textbox}
 					placeholder={'Your Note Goes Here'}
-					onChangeText = {this.setData}
+					onChangeText = {(content) => this.setState({content: content})}
 					multiline = {true}
 					numberOfLines = {8}
-					value = {this.state.note}/>
+					value = {this.state.content}/>
 			
 				<Button
         			onPress={this.goNote.bind(this)}
@@ -44,6 +41,11 @@ export default class EditNote extends Component {
 	}
 
 	goNote() {
+		var subject = this.props.subject.toString();
+		realm.write (() => {
+			realm.create('Note', {id: 7, index: 18, title: this.state.title, note: this.state.content, subject: subject});
+			realm.create('SubjectContent', {index: 18, fk: '7', title: this.state.title, info: '', subject: subject, type: 'Note', new: false});
+		});
 		this.props.navigator.pop();
 	}
 }
@@ -66,9 +68,19 @@ const styles = StyleSheet.create({
     	color: '#FFFFFF',
     	textAlignVertical: 'center'
   	},
-  	textbox: {
+  	titlebox: {
   		textAlignVertical: 'top',
   		flex: 1,
+  		borderColor: '#455A64',
+    	borderWidth:2,
+    	padding: 5,
+    	margin: 5,
+    	backgroundColor: '#FFFFFF',
+    	fontSize: 17
+  	},
+  	textbox: {
+  		textAlignVertical: 'top',
+  		flex: 8,
   		borderColor: '#455A64',
     	borderWidth:2,
     	padding: 5,

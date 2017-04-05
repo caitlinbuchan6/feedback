@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import Button from 'react-native-button';
 import {ListView} from 'realm/react-native';
 import realm from './../models/Index';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ActionButton from 'react-native-action-button';
 
 var Accordion = require('react-native-accordion');
 
 export default class Subject extends Component {
 	constructor(props) {
 		super(props);
-		var data = realm.objects('SubjectContent').filtered('subject = "' + props.id + '"');
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,
 			sectionHeaderHasChanged: (s1, s2) => s1 != s2});
 		this.state = {
-			dataSource:ds.cloneWithRowsAndSections(this.convertToMap(data))
+			dataSource:ds.cloneWithRowsAndSections(this.convertToMap(realm.objects('SubjectContent').filtered('subject = "' + props.id + '"')))
 		};
 
+		this.goNoteEdit = this.goNoteEdit.bind(this);
 		this.renderRow = this.renderRow.bind(this);
 		this.goFeedback = this.goFeedback.bind(this);
 	}
@@ -28,6 +30,11 @@ export default class Subject extends Component {
 				renderRow={this.renderRow}
 				renderSectionHeader={this.renderSectionHeader}
 				/>
+				<ActionButton buttonColor="#FF5722">
+          			<ActionButton.Item buttonColor='#455A64' title="New Note" onPress={this.goNoteEdit.bind(this)}>
+            			<Icon name="sticky-note-o" size = {30} style={styles.new}/>
+          			</ActionButton.Item>
+          		</ActionButton>
 			</View>
 		);
 	}
@@ -68,8 +75,12 @@ export default class Subject extends Component {
 		)
 	}
 
+	goNoteEdit() {
+		this.props.navigator.push({screen:this.props.title, index: 24, subject:this.props.id});
+	}
+
 	goFeedback(dataItem) {
-		this.props.navigator.push({screen: dataItem.title, index: dataItem.index, new: dataItem.new, fk: dataItem.fk });
+		this.props.navigator.push({screen: dataItem.title, index: dataItem.index, new: dataItem.new, fk: dataItem.fk, subject: dataItem.subject });
 	}
 
 	convertToMap(data) {
@@ -91,6 +102,9 @@ const styles = StyleSheet.create({
 		flex: 1,
     	backgroundColor: '#CFD8DC',
 	},
+	new: {
+  		color: '#FF5722'
+  	},
 	header: {
 		height: 50,
 		borderColor: '#455A64',

@@ -50,12 +50,8 @@ export default class Feedback extends Component {
 
 	}
 
-  getObject(data) {
-
-  }
-
 	goYourSayEdit() {
-		this.props.navigator.push({screen: this.props.title, index: 14});
+		this.props.navigator.push({screen: this.props.title, index: 23, fk: this.props.fk, subject: this.props.subject});
 	}
 	
 }

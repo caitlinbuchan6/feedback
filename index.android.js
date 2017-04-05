@@ -65,23 +65,23 @@ class Navigation extends Component {
       case 10:
       case 11:
       case 12:
-        return <Feedback navigator={nav} title = {route.screen} new = {route.new} fk = {route.fk}/>
+        return <Feedback navigator={nav} title = {route.screen} new = {route.new} fk = {route.fk} subject = {route.subject}/>
       case 13:
       case 14:
       case 15:
       case 16:
       case 17:
       case 18:
-        return <Note navigator={nav} title = {route.screen} note = {route.index} fk = {route.fk}/>
+        return <Note navigator={nav} title = {route.screen} fk = {route.fk} subject = {route.subject}/>
       case 19:
       case 20:
       case 21:
       case 22:
-        return <YourSay navigator={nav} title = {route.screen} fk = {route.fk}/>
+        return <YourSay navigator={nav} title = {route.screen} fk = {route.fk} subject = {route.subject}/>
       case 23:
-        return <YourSayEdit navigator={nav} title = {route.screen}/>
+        return <YourSayEdit navigator={nav} title = {route.screen} fk = {route.fk} subject = {route.subject}/>
       case 24:
-        return <EditNote navigator={nav} title = {route.screen} note={route.note}/>
+        return <EditNote navigator={nav} title = {route.screen} subject = {route.subject}/>
     }
   }
 }

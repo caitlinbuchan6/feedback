@@ -9,6 +9,7 @@ var Accordion = require('react-native-accordion');
 
 export default class Home extends Component {
 	constructor(props) {
+		
 		super(props);
 		const ds = new ListView.DataSource({
 			rowHasChanged: (r1, r2) => r1 !== r2});
@@ -40,6 +41,7 @@ export default class Home extends Component {
 
 		var header = (
 			<View style={styles.header}>
+				{hasNew}
 				<Text style={styles.headertext}>{rowData.title}</Text>
 			</View>
 		);

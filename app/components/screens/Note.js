@@ -1,61 +1,35 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, TextInput, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
+import realm from './../models/Index';
 
 export default class Note extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			'note': '',
-		};
-		this.goNoteEdit = this.goNoteEdit.bind(this);
-	}
-
-	//need this for updating page on navigator pop
-	componentWillReceiveProps = () => {
-		AsyncStorage.getItem('note').then((value) => {
-			this.setState({'note':value});
-		});
-	}
-
-	componentDidMount = () => {
-		AsyncStorage.getItem('note').then((value) => {
-			this.setState({'note':value});
-		});
-	}
-
-	setData = (value) => {
-		AsyncStorage.setItem('note', value);
-		this.setState({'note':value});
+		var dataSet = realm.objects('Note').filtered('id = "' + props.fk +'"');
+    	//need to tell it to use the first result in the array
+    	this.state = {
+      		data: dataSet[0]
+    	};
 	}
 
 	render() {
-		let note = this.state.note;
+		let note = this.state.data;
 		let variable;
 		if (note == null){
 			variable = (<Text style={styles.title}>This note is empty, press Edit to add text to your note.</Text>)
 		} else {
-			variable = (<Text style={styles.title}>{this.state.note}</Text>)
+			variable = (<Text style={styles.title}>{this.state.data.note}</Text>)
 		}
 
 			 return (
 				<View style={styles.list}>
 					<View style={styles.textbox}>
-						{variable}
+						<Text style={styles.title}>{this.state.data.note}</Text>
 					</View>
-					
-					<Button
-        				onPress={this.goNoteEdit.bind(this)}
-        				containerStyle={styles.buttoncontainer}
-        				style={styles.buttontext}>Edit
-        			</Button>
 				</View>
 			)
 		}
-
-	goNoteEdit() {
-		this.props.navigator.push({screen: this.props.title, index: 15, note: this.props.index});
-	}
 }
 
 const styles = StyleSheet.create({

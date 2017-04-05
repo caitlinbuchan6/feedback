@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, TextInput, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
+import realm from './../models/Index';
 
 export default class YourSayEdit extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			'comments': ''
-		};
+   		this.state = {
+      		data: ''
+    	};
 		this.goBack = this.goBack.bind(this);
-	}
-
-	componentDidMount = () => {
-		AsyncStorage.getItem('comments').then((value) => {
-			this.setState({'comments':value});
-		});
-	}
-
-	setData = (value) => {
-		AsyncStorage.setItem('comments', value);
-		this.setState({'comments':value});
 	}
 
 	render() {
@@ -29,10 +19,10 @@ export default class YourSayEdit extends Component {
 				<TextInput
 					style={styles.textbox}
 					placeholder={'Your Reply Goes Here'}
-					onChangeText = {this.setData}
+					onChangeText = {(data) => this.setState({data})}
 					multiline = {true}
 					numberOfLines = {8}
-					value = {this.state.comments}/>
+					value = {this.state.data}/>
 	
 				<Button
         			onPress={this.goBack.bind(this)}
@@ -44,6 +34,10 @@ export default class YourSayEdit extends Component {
 	}
 
 	goBack() {
+		realm.write (() => {
+			realm.create('YourSay', {id: 5, index: 19, title: this.props.title, comments: this.state.data, subject: this.props.subject, feedback: '1'});
+			realm.create('SubjectContent', {index: 22, fk: '5', title: this.props.title, info: '', subject: this.props.subject, type: 'Your Say', new: false});
+		})
 		this.props.navigator.pop();
 	}
 }

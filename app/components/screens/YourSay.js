@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TextInput, StyleSheet, AsyncStorage } from 'react-native';
+import { AppRegistry, Text, View, TextInput, StyleSheet } from 'react-native';
+import realm from './../models/Index';
 
 export default class YourSay extends Component {
 constructor(props) {
 		super(props);
-		this.state = {
-			'comments': ''
-		};
-	}
-
-	componentDidMount = () => {
-		AsyncStorage.getItem('comments').then((value) => {
-			this.setState({'comments':value});
-		});
+		var data = realm.objects('YourSay').filtered('id = "' + props.fk +'"')[0];
+    	//need to tell it to use the first result in the array
+   		this.state = {
+      		data: data
+    	};
 	}
 
 	render() {
 			return (
 				<View style={styles.list}>
-					<Text style={styles.textbox}>{this.state.comments}</Text>
+					<Text style={styles.textbox}>{this.state.data.comments}</Text>
 				</View>
 		);
 	}
