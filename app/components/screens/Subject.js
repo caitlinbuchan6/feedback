@@ -6,8 +6,6 @@ import realm from './../models/Index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ActionButton from 'react-native-action-button';
 
-var Accordion = require('react-native-accordion');
-
 export default class Subject extends Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +25,7 @@ export default class Subject extends Component {
 			<View style={styles.list}>
 				<ListView
 				dataSource={this.state.dataSource}
-				renderRow={this.renderRow}
+				renderRow={this.renderRow.bind(this)}
 				renderSectionHeader={this.renderSectionHeader}
 				/>
 				<ActionButton buttonColor="#FF5722">
@@ -40,31 +38,13 @@ export default class Subject extends Component {
 	}
 
 	renderRow(dataItem) {
-		var header = (
-			<View style={styles.header}>
-				<Text style={styles.headertext}>{dataItem.title}</Text>
-			</View>
-		);
-
-		var content = (
-			<View style={styles.content}>
-				<Text style={styles.contenttext}>{dataItem.info}</Text>
-
-				<Button
-        			onPress={this.goFeedback.bind(this, dataItem)}
-        			containerStyle={styles.buttoncontainer}
-        			style={styles.buttontext}>Go to Page
-        		</Button>
-			</View>
-		);
-
 		return (
-			<Accordion
-				header={header}
-				content={content}
-				easing="easeOutCubic"
-			/>
-		);
+			<View style={styles.header}>
+				<TouchableHighlight underlayColor = '#607D8B' onPress={this.goFeedback.bind(this, dataItem)}> 
+					<Text style={styles.headertext}>{dataItem.title}</Text>
+				</TouchableHighlight>
+			</View>
+		)
 	}
 
 	renderSectionHeader(sectionData, Type) {

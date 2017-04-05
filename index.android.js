@@ -28,7 +28,7 @@ class Navigation extends Component {
                   return null;
                 } else {
                   return (
-                    <TouchableHighlight onPress={() => nav.pop()}>
+                    <TouchableHighlight underlayColor='#607D8B' onPress={() => nav.pop()}>
                       <Icon name = "arrow-left" size = {30} color = '#FF5722' style={{marginLeft:10}}/>
                     </TouchableHighlight>
                   );
