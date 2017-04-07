@@ -42,7 +42,7 @@ export default class YourSayEdit extends Component {
 			realm.create('YourSay', {id: id, index: 19, title: title, comments: this.state.data, subject: this.props.subject, feedback: '1'});
 			realm.create('SubjectContent', {index: 22, fk: idString, title: title, info: '', subject: this.props.subject, type: 'Your Say', new: false});
 		})
-		this.props.navigator.pop();
+		this.props.navigator.popN(3);
 	}
 }
 

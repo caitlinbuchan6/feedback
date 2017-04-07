@@ -11,8 +11,9 @@ export default class Subject extends Component {
 		super(props);
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,
 			sectionHeaderHasChanged: (s1, s2) => s1 != s2});
+		var data = ds.cloneWithRowsAndSections(this.convertToMap(realm.objects('SubjectContent').filtered('subject = "' + props.id + '"')))
 		this.state = {
-			dataSource:ds.cloneWithRowsAndSections(this.convertToMap(realm.objects('SubjectContent').filtered('subject = "' + props.id + '"')))
+			dataSource:data
 		};
 
 		this.goNoteEdit = this.goNoteEdit.bind(this);
