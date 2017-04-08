@@ -13,6 +13,7 @@ import YourSayEdit from './app/components/screens/YourSayEdit';
 
 class Navigation extends Component {
   render() {
+
     return (
       <Navigator
         sceneStyle={{paddingTop: 64}} 
